@@ -1,0 +1,149 @@
+<div class="row  mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header text-center alert alert-primary">
+                <h2>
+                    Thêm Product
+                </h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/courses/store">
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Nhập vào địa chỉ name">
+                    </div>
+                    <div class="form-group">
+                        <label for="">description</label>
+                      <textarea name="" id="" cols="30" rows="10" class="form-control" id="description" name="description" placeholder="Nhập vào địa chỉ description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">image</label>
+                        <input type="text" class="form-control" id="image" name="image" placeholder="Nhập vào địa chỉ image">
+                    </div>
+                    <div class="form-group">
+                        <label for="">VideoId</label>
+                        <input type="text" class="form-control" id="videoid" name="videoid" placeholder="Nhập vào địa chỉ videoid">
+                    </div>
+                
+                    <div class="form-group text-right">
+                        <button class="btn btn-primary">Thêm Danh sách</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <div>
+        <a href="">Thùng rác ({{deletedCount}})</a>
+    </div>
+</div>
+
+<div class="mt-4 d-flex align-items-center">
+    <div class="form-check">
+        <input class="form-control-input"  type="checkbox" id="customCheck1">
+        <label class="form-control-label" for="customCheck1">Chọn tất cả</label>
+    </div>
+
+    <select class="form-control form-control-sm" id="">
+        <option>-- Chọn hành động ---</option>
+        <option value="delete">Xóa</option>
+    </select>
+
+    <button class="btn btn-primary btn-sm">Thực hiện</button>
+</div>
+
+<div class="row  mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header text-center alert alert-primary">
+                Danh sách Product
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="table" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" colspan="2">#</th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">description</th>
+                                    <th class="text-center">image</th>
+                                    <th class="text-center">VideoId</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-nowrap">
+                                 <tr{{#each course}}>
+                                    <td>
+                                         <div class="form-check">
+                                                <input class="form-control-input"  type="checkbox" name="courseIds[]" value="{{this._id}}">            
+                                         </div>
+                                    </td>
+                                        <th>{{@index}}</th>
+                                        <td>{{this.name}}</td>
+                                        <td>{{this.description}}</td>
+                                        <td>{{this.image}}</td>
+                                        <td>{{this.slug}}</td>
+                                        <td>
+                                            <a href="courses/{{this._id}}/edit" class="btn btn-success">sửa</a>
+                                            <a href="" class="btn btn-danger" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-course-modal">Xóa</a>
+                                        </td>                                
+                                </tr{{/each}}>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="row">
+<div id="delete-course-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bạn Có Chắc Muốn Xóa Không 
+        <input type="hidden" class="form-control" id="delete_id"
+        placeholder="Nhập vào id cần xóa">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">hủy</button>
+        <button id="btn-delete-course" type="button" class="btn btn-dark">Xóa bỏ</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+ <form name="delete-course-form" method="POST"></form>
+
+<script>
+   document.addEventListener("DOMContentLoaded", function() {
+
+  $('#delete-product-modal').on('show.bs.modal', function (event) {
+    var productId;
+    var deleteForm = document.forms['delete-form'];
+    var button = $(event.relatedTarget); 
+     productId = button.data('id');
+   
+
+    var btnDeleteProduct = document.getElementById('btn-delete-product');
+    btnDeleteProduct.onclick = function() {
+        
+        deleteForm.action = '/products/' + productId  + '?_method=DELETE';
+        deleteForm.submit();  
+    } 
+  })
+
+})
+</script>

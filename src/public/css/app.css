@@ -1,0 +1,36 @@
+header {
+  color: #fff;
+  font-size: 50px;
+  background-color: #CECF31;
+  padding: 30px;
+  text-align: center; }
+
+nav.menu {
+  background-color: #FBA51A;
+  padding: 10px 0; }
+
+nav.menu ul {
+  list-style-type: none;
+  display: flex; }
+
+nav.menu ul li {
+  margin-right: 30px; }
+
+nav.menu ul li a {
+  text-decoration: none;
+  color: #fff; }
+
+section {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  height: 400px; }
+
+section nav {
+  background-color: #1399B8; }
+
+section article {
+  background-color: #87C3DC; }
+
+footer {
+  background-color: #FBA51A;
+  padding: 20px 0; }
